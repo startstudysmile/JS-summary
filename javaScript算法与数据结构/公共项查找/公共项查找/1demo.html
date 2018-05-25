@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+
+var arr_arr = [[3,8,5],[1,9,4,3,6,7,5,2]];  //公共子项 3 , 5
+
+function show(arr){
+	var arr0 = unqiue(arr[0]);
+	var arr1 = unqiue(arr[1]);
+	var result = [];
+	for(var i=0;i<arr0.length;i++){
+		for(var j=0;j<arr1.length;j++){
+			console.log(arr1[j]);
+			if( arr0[i] == arr1[j] ){
+				result.push( arr0[i] );
+				break;
+			}
+		}
+	}
+	return result;
+}
+function unqiue(arr){
+	var json = {};
+	var result = [];
+	for(var i=0;i<arr.length;i++){
+		if( !json[arr[i]] ){
+			json[arr[i]] = 1;
+			result.push( arr[i] );
+		}
+	}
+	return result;
+}
+console.log(show( arr_arr ));
+
+</script>
+</head>
+
+<body>
+</body>
+</html>

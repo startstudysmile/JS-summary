@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0;}
+li{ list-style:none;}
+#ul1{ margin:20px auto; border:1px #000 solid; border-bottom:none; border-right:none; overflow:hidden;}
+#ul1 li{border:1px #000 solid; border-left:none; border-top:none; float:left;}
+</style>
+
+</head>
+
+<body>
+<ul id="ul1">
+</ul>
+<script>
+
+var oUl = document.getElementById('ul1');
+var aLi = oUl.getElementsByTagName('li');
+var size = 6;
+var len = size * size;
+var sizeGrid = 50;
+var arr = [];
+
+oUl.style.width = size * (sizeGrid + 1) + 'px';
+
+for(var i=0;i<len;i++){
+	var oLi = document.createElement('li');
+	oLi.style.width = sizeGrid + 'px';
+	oLi.style.height = sizeGrid + 'px';
+	oLi.innerHTML = i;
+	arr.push(i);
+	oUl.appendChild(oLi);
+}
+
+arr = changeXY(arr,size);
+arr = changeXY(arr,size);
+
+for(var i=0;i<aLi.length;i++){
+	aLi[i].innerHTML = arr[i];
+}
+
+/*function changeXY(arr){
+	var newArr = [];
+	for(var i=0;i<arr.length;i++){
+		if(i%size == 0){
+			newArr.push(arr[i]);
+		}
+	}
+	for(var i=0;i<arr.length;i++){
+		if(i%size == 1){
+			newArr.push(arr[i]);
+		}
+	}
+	for(var i=0;i<arr.length;i++){
+		if(i%size == 2){
+			newArr.push(arr[i]);
+		}
+	}
+	for(var i=0;i<arr.length;i++){
+		if(i%size == 3){
+			newArr.push(arr[i]);
+		}
+	}
+	return newArr;
+}*/
+
+function changeXY(arr,size){
+	var newArr = [];
+	var iNow = 0;
+	console.log(arr);
+	(function(){
+		if(iNow == size){
+			return;
+		}
+		for(var i=0;i<arr.length;i++){
+			if(i%size == iNow){
+				newArr.push(arr[i]);
+			}
+		}
+		iNow++;
+		arguments.callee();
+	})();	
+	return newArr;
+}
+
+</script>
+</body>
+</html>

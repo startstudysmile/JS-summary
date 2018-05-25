@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0;}
+li{ list-style:none;}
+#ul1{ position:relative; margin:20px auto; background:#1b1f2b; overflow:hidden;}
+#ul1 li{ float:left;}
+#ul1 .box0{background:url(img/1.jpg) no-repeat;} 
+#ul1 .box1{background:url(img/2.jpg) no-repeat;} 
+#ul1 .box2{background:url(img/3.jpg) no-repeat;} 
+#ul1 .box3{background:url(img/4.jpg) no-repeat;} 
+#ul1 .box4{background:url(img/5.jpg) no-repeat;} 
+#ul1 .box5{background:url(img/6.jpg) no-repeat;} 
+</style>
+</head>
+
+<body>
+<ul id="ul1">
+</ul>
+<script>
+
+var oUl = document.getElementById('ul1');
+var aLi = oUl.getElementsByTagName('li');
+var size = 7;
+var len = size * size;
+var sizeGrid = 70;
+
+init();
+
+function init(){
+	createMap();
+	remove();
+}
+function createMap(){
+	
+	oUl.style.width = size*sizeGrid + 'px';
+	oUl.style.height = size*sizeGrid + 'px';
+	for(var i=0;i<len;i++){
+		var oLi = document.createElement('li');
+		oLi.style.width = sizeGrid + 'px';
+		oLi.style.height = sizeGrid + 'px';
+		oLi.className = 'box'+ Math.floor(Math.random()*6);
+		oUl.appendChild(oLi);
+	}
+}
+
+function remove(){
+	var arr = [];
+
+	function addArr(aLi){
+		var prevLi = aLi[0];
+		var iNum = 0;		
+		for(var i=0;i<aLi.length;i++){
+			if( aLi[i].className == prevLi.className && i%size!=0 ){
+				iNum++;
+			}
+			else{
+				if(iNum >= 2){
+					for(var j=0;j<=iNum;j++){
+						if(toCon(aLi[(i-1)-j])){
+							arr.unshift( aLi[(i-1)-j] );
+						}
+					}
+					
+				}
+				iNum = 0;
+			}
+			prevLi = aLi[i];	
+		}
+	}
+	
+	function toCon(li){
+		for(var i=0;i<arr.length;i++){
+			if(arr[i] == li){ 
+				return false;
+			}
+		}
+		return true;
+	}
+			
+	addArr(aLi);
+	addArr( changeXY(aLi,size) );
+	
+	for(var i=0;i<aLi.length;i++){
+		aLi[i].style.opacity = 0.3;
+	}
+	for(var i=0;i<arr.length;i++){
+		arr[i].style.opacity = 1;
+	}
+	
+	
+}
+
+function changeXY(arr,size){
+	var newArr = [];
+	var iNow = 0;
+	(function(){
+		if(iNow == size){
+			return;
+		}
+		for(var i=0;i<arr.length;i++){
+			if(i%size == iNow){
+				newArr.push(arr[i]);
+			}
+		}
+		iNow++;
+		arguments.callee();
+	})();	
+	return newArr;
+}
+
+
+</script>
+</body>
+</html>

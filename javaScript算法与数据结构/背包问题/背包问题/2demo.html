@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+
+/*var M = 5;
+var W = 16;
+var arrP = [4,5,10,11,13];
+var arrW = [3,4,7,8,9];
+
+function show(M,W,arrP,arrW){
+	var wholeArr = [];
+	var result = 0;
+	for(var i=0;i<M;i++){
+		wholeArr.push({ p : arrP[i] , w : arrW[i] , r : arrP[i]/arrW[i] });
+	}
+	//console.log(wholeArr);
+	wholeArr.sort(function(obj1,obj2){
+		return obj2.r - obj1.r;
+	});
+	console.log(wholeArr);
+	for(var i=0;i<wholeArr.length;i++){
+		if( wholeArr[i].w <= W ){
+			result += wholeArr[i].p;
+			W -= wholeArr[i].w;
+		}
+	}
+	return result;
+}
+console.log( show(M,W,arrP,arrW) );*/
+
+/*1.33
+1.25
+1.43
+1.38
+1.44*/
+
+
+
+var M = 5;
+var W = 16;
+var arrP = [4,5,10,11,12];
+var arrW = [3,4,7,8,9];
+
+function show(M,W,arrP,arrW){
+	var wholeArr = [];
+	var result = 0;
+	for(var i=0;i<M;i++){
+		wholeArr.push({ p : arrP[i] , w : arrW[i] , r : arrP[i]/arrW[i] });
+	}
+	//console.log(wholeArr);
+	wholeArr.sort(function(obj1,obj2){
+		return obj2.r - obj1.r;
+	});
+	//console.log(wholeArr);
+	for(var i=0;i<wholeArr.length;i++){
+		if( wholeArr[i].w <= W ){
+			result += wholeArr[i].p;
+			W -= wholeArr[i].w;
+		}
+		else{
+			result += W/wholeArr[i].w * wholeArr[i].p;
+			break;
+		}
+	}
+	
+	return result.toFixed(2);
+}
+console.log( show(M,W,arrP,arrW) );
+</script>
+</head>
+
+<body>
+</body>
+</html>

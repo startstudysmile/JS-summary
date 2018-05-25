@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+
+function Node(element){
+	this.element = element;
+	this.next = null;
+}
+
+function LList(){
+	this.head = new Node('head');
+}
+LList.prototype.find = function(item){
+	var currNode = this.head;
+	while( currNode.element != item ){
+		currNode = currNode.next;
+	}
+	return currNode;
+};
+LList.prototype.findPrevious = function(item){
+	
+	var currNode = this.head;
+	while( currNode!=null && currNode.next.element != item ){
+		currNode = currNode.next;
+	}
+	return currNode;
+	
+};
+LList.prototype.insert = function(newElement , item){
+	
+	var newNode = new Node(newElement);
+	var currNode = this.find(item);
+	newNode.next = currNode.next;
+	currNode.next = newNode;
+	
+};
+LList.prototype.remove = function(item){
+	var prevNode = this.findPrevious(item);
+	var currNode = this.find(item);
+	prevNode.next = currNode.next;
+};
+LList.prototype.display = function(){
+	var currNode = this.head;
+	var result = [];
+	while( currNode.next != null ){
+		result.push( currNode.next.element );
+		currNode = currNode.next;
+	}
+	return result;
+};
+
+var obj = new LList();
+obj.insert( 'a' , 'head' );
+obj.insert( 'b' , 'a' );
+obj.insert( 'c' , 'b' );
+obj.insert( 'd' , 'a' );
+
+//console.log( obj.find('a') );
+
+console.log( obj.display() );
+
+obj.remove('b');
+obj.remove('a');
+
+console.log( obj.display() );
+
+
+</script>
+</head>
+
+<body>
+</body>
+</html>
